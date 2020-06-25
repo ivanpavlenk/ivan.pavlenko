@@ -1,20 +1,29 @@
+
+
+
 let age = +prompt('сколько вам лет');
+let balanceAge = age % 100;
+let balanceAge2 = age % 10
 
-if ( age % 10 == 1 || age % 100 == 1){
-
-    alert('Вам  '+ age + '  год' );
-
-}else if (age >= 5 && age < 20 ){
+if (balanceAge >= 5 && balanceAge < 20 ){
 
     alert('Вам  '+ age + '  лет' );
 
-}else if ( age % 10 >= 5 && age % 10 <= 10 ){
 
-    alert('Вам  '+ age + '  лет' );
+} else {
 
-}else if ( age % 10 == 0 || age % 100 == 0){
+    if (balanceAge2 == 1) {
 
-    alert('Вам  '+ age + '  лет' );
+        alert('Вам  '+ age + '  год' );
 
-}else alert('Вам  '+ age + '  года' );
+    } else if (balanceAge2 >= 2 && balanceAge2 <= 4) {
+
+        alert('Вам  '+ age + '  года' );
+
+    } else {
+        alert('Вам  '+ age + '  лет' );
+    }
+}
+
+
 
