@@ -1,29 +1,24 @@
 
 
 
-let age = +prompt('сколько вам лет');
-let balanceAge = age % 100;
-let balanceAge2 = age % 10
+function plural(heightTriangle , symbol) {
 
-if (balanceAge >= 5 && balanceAge < 20 ){
+    heightTriangle = +prompt('Введите число');
 
-    alert('Вам  '+ age + '  лет' );
+    symbol = prompt('Введите символ');
+    
+    let space = '-';
 
+    if( typeof heightTriangle === 'number' && symbol.length === 1) {
 
-} else {
-
-    if (balanceAge2 == 1) {
-
-        alert('Вам  '+ age + '  год' );
-
-    } else if (balanceAge2 >= 2 && balanceAge2 <= 4) {
-
-        alert('Вам  '+ age + '  года' );
-
-    } else {
-        alert('Вам  '+ age + '  лет' );
-    }
+        for (let i = 1; i <= heightTriangle; i++) {
+    
+            console.log(space.repeat(heightTriangle - i) + symbol.repeat(i)) 
+        }
+    }     
 }
+
+plural()
 
 
 
