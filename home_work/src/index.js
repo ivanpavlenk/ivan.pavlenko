@@ -1,28 +1,17 @@
+let heightTriangle = prompt('ВВедите число');
 
+let triangle = ''
 
+for (let i = 1; i <= heightTriangle; i++) {
 
-function plural(heightTriangle , symbol) {
+    triangle += '*';
 
-    heightTriangle = +prompt('Введите число');
-
-    symbol = prompt('Введите символ');
+    document.write(triangle + '<br>')
     
-    let space = ' ';
-    let maxSymbols = heightTriangle * 2 - 1;
-
-    if( typeof heightTriangle === 'number' && symbol.length === 1) {
-        
-        for (let i = 1; i <= maxSymbols; i += 2) {
-
-                let spaces = (maxSymbols-i)/2;
-
-                console.log(space.repeat(spaces) + symbol.repeat(i))
-             
-        }
-    }     
 }
 
-plural()
+
+
 
 
 
