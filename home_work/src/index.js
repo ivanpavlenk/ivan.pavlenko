@@ -1,14 +1,15 @@
-let heightTriangle = prompt('ВВедите число');
+let heightTriangle = prompt('Введите число');
 
 let triangle = ''
 
 for (let i = 1; i <= heightTriangle; i++) {
 
-    triangle += '*';
-
-    document.write(triangle + '<br>')
+    triangle += "*".repeat(i) +'\n';
     
 }
+
+alert(triangle);
+
 
 
 
