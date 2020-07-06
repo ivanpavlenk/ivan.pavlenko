@@ -1,16 +1,59 @@
-let heightTriangle = prompt('Введите число');
+function myPadString(myString , stringLength , addSimbol, flag) {
 
-let triangle = ''
+    let minMax = stringLength - myString.length
+    let str = ''
 
-for (let i = 1; i <= heightTriangle; i++) {
+     if (stringLength > myString.length && flag == true) {
+       
+        for (let i = 0; i < minMax; i++) {
+            
+             myString = myString.concat(addSimbol)
+        } 
 
-    triangle += "*".repeat(i) +'\n';
+    } else if  (stringLength > myString.length && flag == false) {
+
+        for (let i = 0; i < minMax; i++) {
+
+            str += addSimbol 
+        }
+        myString = str + myString
+
+
+    } else myString = myString
     
+   console.log (myString)
 }
 
-alert(triangle);
+myPadString('hello', 7, '*', true);
 
 
+
+
+
+// function getResult(a,b,mathSymbol) {
+
+//     return eval(a + mathSymbol+ b)
+    
+// }
+
+// alert(getResult(2,2,'+'))
+
+
+
+
+
+// function isCharPresent(myString,needSymbol) {
+    
+//     for (let i = 0; i < myString.length; i++) {
+
+//         console.log(myString[i])
+
+//         if (myString[i] === needSymbol) return true
+
+//     } return false
+// }
+
+// alert(isCharPresent('hello','l'))
 
 
 
