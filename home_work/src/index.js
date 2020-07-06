@@ -21,10 +21,10 @@ function myPadString(myString , stringLength , addSimbol, flag) {
 
     } else myString = myString
     
-   console.log (myString)
+  return myString
 }
 
-myPadString('hello', 7, '*', true);
+alert(myPadString('hello', 7, '*', true));
 
 
 
@@ -32,7 +32,9 @@ myPadString('hello', 7, '*', true);
 
 // function getResult(a,b,mathSymbol) {
 
-//     return eval(a + mathSymbol+ b)
+//      let str = (a + mathSymbol + b)
+
+//     return Function('"use strict";return (' + str + ')')();
     
 // }
 
@@ -46,8 +48,6 @@ myPadString('hello', 7, '*', true);
     
 //     for (let i = 0; i < myString.length; i++) {
 
-//         console.log(myString[i])
-
 //         if (myString[i] === needSymbol) return true
 
 //     } return false
@@ -55,6 +55,26 @@ myPadString('hello', 7, '*', true);
 
 // alert(isCharPresent('hello','l'))
 
+
+
+
+// function charIndexOf(myString,needSymbol) {
+
+//     myIndex = ''
+
+//     for (let i = 0; i < myString.length; i++) {
+        
+//         if (myString[i] === needSymbol) {
+
+//             myIndex += 'index : ' + i + ' '
+
+//         }
+//     } 
+    
+//     return myIndex || -1
+// }
+
+// alert(charIndexOf('hollo','o'))
 
 
 
