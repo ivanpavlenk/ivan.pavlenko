@@ -1,14 +1,28 @@
-let heightTriangle = prompt('ВВедите число');
+function showTriangle(number,symbol) {
 
-let triangle = ''
+    symbol = symbol || '*';
 
-for (let i = 1; i <= heightTriangle; i++) {
+    console.log(symbol)
 
-    triangle += '*';
-
-    document.write(triangle + '<br>')
+    if (symbol.length === 1) {
     
+        let triangle = ''
+
+        for (let i = 1; i <= number; i++) {
+
+        triangle += symbol.repeat(i) +'\n';
+    } 
+    
+    return triangle
+
+    } else alert('Введите только один символ!')     
 }
+
+alert(showTriangle(6,'*'))
+
+
+
+
 
 
 
