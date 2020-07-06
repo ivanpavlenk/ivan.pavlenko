@@ -3,14 +3,14 @@ function myPadString(myString , stringLength , addSimbol, flag) {
     let minMax = stringLength - myString.length
     let str = ''
 
-     if (stringLength > myString.length && flag == true) {
+     if (stringLength > myString.length && flag === true) {
        
         for (let i = 0; i < minMax; i++) {
             
              myString = myString.concat(addSimbol)
         } 
 
-    } else if  (stringLength > myString.length && flag == false) {
+    } else if  (stringLength > myString.length && flag === false) {
 
         for (let i = 0; i < minMax; i++) {
 
