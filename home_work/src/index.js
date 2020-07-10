@@ -1,84 +1,51 @@
-function myPadString(myString , stringLength , addSimbol, flag) {
-
-    let minMax = stringLength - myString.length
-    let str = ''
-
-     if (stringLength > myString.length && flag === true) {
-       
-        for (let i = 0; i < minMax; i++) {
+function odd (myArray) {
+    let newArray = []
+    for (let i = 0; i < myArray.length; i++) {
+        
+        if (myArray[i] % 2 != 0) {
             
-             myString = myString.concat(addSimbol)
-        } 
-
-    } else if  (stringLength > myString.length && flag === false) {
-
-        for (let i = 0; i < minMax; i++) {
-
-            str += addSimbol 
+            newArray.push(myArray[i])
         }
-        myString = str + myString
+        
+    } return newArray
 
-
-    } else myString = myString
-    
-  return myString
 }
 
-alert(myPadString('hello', 7, '*', true));
+alert(odd([1,2,3,4,5,6,7,8]))
 
 
 
 
+// function even (myArray) {
 
-// function getResult(a,b,mathSymbol) {
+//     let newArray = []
 
-//      let str = (a + mathSymbol + b)
-
-//     return Function('"use strict";return (' + str + ')')();
-    
-// }
-
-// alert(getResult(2,2,'+'))
-
-
-
-
-
-// function isCharPresent(myString,needSymbol) {
-    
-//     for (let i = 0; i < myString.length; i++) {
-
-//         if (myString[i] === needSymbol) return true
-
-//     } return false
-// }
-
-// alert(isCharPresent('hello','l'))
-
-
-
-
-// function charIndexOf(myString,needSymbol) {
-
-//     myIndex = ''
-
-//     for (let i = 0; i < myString.length; i++) {
+//     for (let i = 0; i < myArray.length; i++) {
         
-//         if (myString[i] === needSymbol) {
-
-//             myIndex += 'index : ' + i + ' '
-
+//         if (myArray[i] % 2 == 0) {
+            
+//             newArray.push(myArray[i])
 //         }
-//     } 
-    
-//     return myIndex || -1
+        
+//     } return newArray
 // }
-
-// alert(charIndexOf('hollo','o'))
-
+// alert(even([1,2,3,4,5,6,7,8]))
 
 
 
 
+// let needArray = [[1,2,3,4],[5,6,7,8]]
 
+// function flat (myArray) {
+    
+//     newArray = []
 
+//     for (let i = 0; i < myArray.length; i++) {
+        
+//         for (let k = 0; k < myArray[i].length; k++) {
+        
+//            newArray.push(myArray[i][k]) 
+//         } 
+//     } return newArray
+// }
+// alert(flat(needArray))
