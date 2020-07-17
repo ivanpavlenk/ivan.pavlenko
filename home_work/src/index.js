@@ -1,51 +1,133 @@
-function odd (myArray) {
-    let newArray = []
-    for (let i = 0; i < myArray.length; i++) {
+
+let ToDo = {
+   
+    items: [],
+
+    createNewTask: function (taskName,taskStatus,taskText,taskDate){
+
+        taskDate = new Date().toLocaleString();
+
+        if (ToDo.items.length > 0) {
+
+            for (let key in this.items) {
+
+                if (this.items[key].name !== taskName) {
+
+                   let task = Object.create(
+                    {},
         
-        if (myArray[i] % 2 != 0) {
+                    {
+                        name:{
+                            value: taskName
+                        },
+        
+                        status: {
+                            value: taskStatus,
+                            writable: true,
+                        },
+        
+                        date: {
+                            value: taskDate
+                        },
+        
+                        text: {
+                            value: taskText,
+                            writable:  true
+                        }
+        
+                    });
+                this.items.push(task);
+                    
+                }
+            }
             
-            newArray.push(myArray[i])
         }
+        else {
+            let task = Object.create(
+                {},
+    
+                {
+                    name:{
+                        value: taskName
+                    },
+    
+                    status: {
+                        value: taskStatus,
+                        writable: true,
+                    },
+    
+                    date: {
+                        value: taskDate
+                    },
+    
+                    text: {
+                        value: taskText,
+                        writable:  true
+                    }
+    
+                });
+            this.items.push(task);
+        }
+    },
+
+    deleteTask: function (name, apply) {
+
+        apply = confirm('Удалить задачу?')
+
+        for (const key in this.items) {
+            
+            if (this.items[key].name === name && apply === true) {
+                
+                delete this.items[key]
+            }
+           
+        } 
+    },
+
+    editTask: function (taskName, newText, confirmationEdit) {
+
+        confirmationEdit = confirm('Сохранить изменения?')
+
+        for (const key in this.items) {
+
+            if (this.items[key].name === taskName && confirmationEdit === true ) {
+
+                this.items[key].text = newText
+                
+            }
+        }
+    },
+
+    showInfoAboutTasks: function () {
+
+        let allTask = 0;
+
+        let activeTask = 0;
         
-    } return newArray
+        let completedTask = 0;
+
+        for (const key in this.items) {
+
+             allTask++;
+
+             if (this.items[key].status === true) {
+
+                 activeTask++;
+                 
+             } else completedTask++;
+
+        }
+        console.log(`Всего задач - ${allTask}. Активных - ${activeTask}. Сделано - ${completedTask}`)
+    }
 
 }
 
-alert(odd([1,2,3,4,5,6,7,8]))
+ToDo.createNewTask('task1', true, 'do bla bla bla');
+ToDo.createNewTask('task2', false, 'do bla bla bla');
+ToDo.showInfoAboutTasks();
+console.log(ToDo.items);
 
 
-
-
-// function even (myArray) {
-
-//     let newArray = []
-
-//     for (let i = 0; i < myArray.length; i++) {
-        
-//         if (myArray[i] % 2 == 0) {
-            
-//             newArray.push(myArray[i])
-//         }
-        
-//     } return newArray
-// }
-// alert(even([1,2,3,4,5,6,7,8]))
-
-
-
-
-// let needArray = [[1,2,3,4],[5,6,7,8]]
-
-// function flat (myArray) {
     
-//     newArray = []
-
-//     for (let i = 0; i < myArray.length; i++) {
-        
-//         for (let k = 0; k < myArray[i].length; k++) {
-        
-//            newArray.push(myArray[i][k]) 
-//         } 
-//     } return newArray
-// }
-// alert(flat(needArray))
+    
+    
