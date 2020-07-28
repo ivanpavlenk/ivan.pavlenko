@@ -1,24 +1,19 @@
-function showTriangle(number,symbol) {
+// function sum() {
 
-    symbol = symbol || '*';
+//     let countSum = 0
 
-    console.log(symbol)
+//     return function (n) {
 
-    if (symbol.length === 1) {
-    
-        let triangle = ''
+//         return countSum += n
+//     }
+// }
 
-        for (let i = 1; i <= number; i++) {
+// mySum = sum();
 
-        triangle += symbol.repeat(i) +'\n';
-    } 
-    
-    return triangle
 
-    } else alert('Введите только один символ!')     
-}
+// console.log(mySum(3))
 
-alert(showTriangle(6,'*'))
+// console.log(mySum(5))
 
 
 
@@ -27,8 +22,44 @@ alert(showTriangle(6,'*'))
 
 
 
+function makeCounter(firstValue) {
+
+    let count = firstValue
+  
+    return {
+
+        step(stepCount) {
+
+            return count += stepCount
+        
+        },
+
+        resetCount() {
+            return count = 0
+
+         }
 
 
+    };
+  }
+
+myCount = makeCounter(0);
+
+console.log(myCount.step(3));
+
+console.log(myCount.step(3));
+
+console.log(myCount.resetCount())
+
+console.log(myCount.step(1));
+
+
+
+
+  
+
+
+  
 
 
 
