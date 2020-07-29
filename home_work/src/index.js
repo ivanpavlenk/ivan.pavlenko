@@ -1,65 +1,43 @@
-// function sum() {
+let user = {
 
-//     let countSum = 0
+    name: 'Ivan',
 
-//     return function (n) {
+    surname: 'Pavlenko',
 
-//         return countSum += n
-//     }
-// }
+}
 
-// mySum = sum();
+let user2 = {
 
+    name: 'Oleg',
 
-// console.log(mySum(3))
+    surname: 'Ivanov'
 
-// console.log(mySum(5))
+}
 
+ function Mybind(func, context, ...arrayArgs) {
 
+    return function (...argums) {
 
-
-
-
-
-
-function makeCounter(firstValue) {
-
-    let count = firstValue
-  
-    return {
-
-        step(stepCount) {
-
-            return count += stepCount
+        return func.apply(context, arrayArgs.concat(argums))
         
-        },
+    }
 
-        resetCount() {
-            return count = 0
+ }
 
-         }
-
-
-    };
-  }
-
-myCount = makeCounter(0);
-
-console.log(myCount.step(3));
-
-console.log(myCount.step(3));
-
-console.log(myCount.resetCount())
-
-console.log(myCount.step(1));
+  function fullName (age) {
+    
+    console.log(`Name - ${this.name}. Surname - ${this.surname}`)
+    console.log(`Age - ${age}`)
+}
 
 
 
 
-  
 
+fullName.bind(user2,43)()
 
-  
+    
+Mybind(fullName, user2, 43)()
 
-
+ 
 
