@@ -1,17 +1,17 @@
-function odd (myArray) {
-    let newArray = []
-    for (let i = 0; i < myArray.length; i++) {
+// function odd (myArray) {
+//     let newArray = []
+//     for (let i = 0; i < myArray.length; i++) {
         
-        if (myArray[i] % 2 != 0) {
+//         if (myArray[i] % 2 != 0) {
             
-            newArray.push(myArray[i])
-        }
+//             newArray.push(myArray[i])
+//         }
         
-    } return newArray
+//     } return newArray
 
-}
+// }
 
-alert(odd([1,2,3,4,5,6,7,8]))
+// alert(odd([1,2,3,4,5,6,7,8]))
 
 
 
@@ -34,18 +34,23 @@ alert(odd([1,2,3,4,5,6,7,8]))
 
 
 
-// let needArray = [[1,2,3,4],[5,6,7,8]]
+let needArray = [[1,2,3,4],[5,6,7,8]]
 
-// function flat (myArray) {
+function flat (myArray) {
     
-//     newArray = []
+    newArray = []
 
-//     for (let i = 0; i < myArray.length; i++) {
+    if (typeof myArray === 'object') {
         
-//         for (let k = 0; k < myArray[i].length; k++) {
+        for (let i = 0; i < myArray.length; i++) {
         
-//            newArray.push(myArray[i][k]) 
-//         } 
-//     } return newArray
-// }
-// alert(flat(needArray))
+            for (let k = 0; k < myArray[i].length; k++) {
+            
+               newArray.push(myArray[i][k]) 
+            } 
+        } return newArray
+        
+    }
+}
+alert(flat(needArray))
+
