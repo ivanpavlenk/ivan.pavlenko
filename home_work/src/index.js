@@ -9,9 +9,9 @@ let ToDo = {
 
         if (ToDo.items.length > 0) {
 
-            for (let key in this.items) {
+            for (const [key,value] of Object.entries(ToDo.items)) {
 
-                if (this.items[key].name !== taskName) {
+                if (value.name !== taskName) {
 
                    let task = Object.create(
                     {},
@@ -72,28 +72,24 @@ let ToDo = {
 
     deleteTask: function (name, apply) {
 
-        apply = confirm('Удалить задачу?')
-
-        for (const key in this.items) {
+        for (const [key,value] of Object.entries(ToDo.items)) {
             
-            if (this.items[key].name === name && apply === true) {
-                
+            if (value.name === name && apply === true) {
+
                 delete this.items[key]
             }
            
         } 
     },
 
-    editTask: function (taskName, newText, confirmationEdit) {
+    editTask: function (taskName, newText, confirm) {
 
-        confirmationEdit = confirm('Сохранить изменения?')
+        for (const [key,value] of Object.entries(ToDo.items)) {
 
-        for (const key in this.items) {
-
-            if (this.items[key].name === taskName && confirmationEdit === true ) {
-
-                this.items[key].text = newText
+            if (value.name === taskName && confirm === true ) {
                 
+                this.items[key].text = newText
+               
             }
         }
     },
@@ -106,11 +102,11 @@ let ToDo = {
         
         let completedTask = 0;
 
-        for (const key in this.items) {
+        for (const [key,value] of Object.entries(ToDo.items)) {
 
              allTask++;
 
-             if (this.items[key].status === true) {
+             if (value.status === true) {
 
                  activeTask++;
                  
@@ -124,8 +120,11 @@ let ToDo = {
 
 ToDo.createNewTask('task1', true, 'do bla bla bla');
 ToDo.createNewTask('task2', false, 'do bla bla bla');
-ToDo.showInfoAboutTasks();
+ToDo.editTask('task1', 'dfhdfh',true)
+ToDo.showInfoAboutTasks()
 console.log(ToDo.items);
+
+
 
 
     
