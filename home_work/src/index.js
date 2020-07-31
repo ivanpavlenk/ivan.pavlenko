@@ -40,7 +40,7 @@ function flat (myArray) {
     
     newArray = []
 
-    if (typeof myArray === 'object') {
+    if (Array.isArray(myArray)) {
         
         for (let i = 0; i < myArray.length; i++) {
         
