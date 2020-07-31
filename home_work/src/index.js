@@ -22,36 +22,37 @@
 
 
 
-function makeCounter(firstValue) {
+function makeCounter() {
 
-    let count = firstValue
-  
-    return {
+    let count = 0;
+    let step = 0;
 
-        step(stepCount) {
-
-            return count += stepCount
-        
-        },
-
-        resetCount() {
-            return count = 0
-
-         }
-
-
-    };
+  function counter() {
+    return count+=step;
   }
 
-myCount = makeCounter(0);
+  counter.step = function(value) {
+    step = value;
+  };
 
-console.log(myCount.step(3));
+  counter.reset = function() {
+    count = 0;
+    step = 0;
+  };
 
-console.log(myCount.step(3));
+  return counter;
 
-console.log(myCount.resetCount())
+  }
 
-console.log(myCount.step(1));
+myCount = makeCounter();
+myCount.step(3);
+console.log(myCount())
+console.log(myCount())
+myCount.reset()
+console.log(myCount())
+
+
+
 
 
 
