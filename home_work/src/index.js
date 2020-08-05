@@ -1,5 +1,5 @@
 
-let ToDo = {
+let toDo = {
    
     items: [],
 
@@ -7,9 +7,9 @@ let ToDo = {
 
         taskDate = new Date().toLocaleString();
 
-        if (ToDo.items.length > 0) {
+        if (toDo.items.length > 0) {
 
-            for (const [key,value] of Object.entries(ToDo.items)) {
+            for (const [key,value] of Object.entries(toDo.items)) {
 
                 if (value.name !== taskName) {
 
@@ -72,26 +72,26 @@ let ToDo = {
 
     deleteTask: function (name, apply) {
 
-        for (const [key,value] of Object.entries(ToDo.items)) {
-            
-            if (value.name === name && apply === true) {
+            if (apply === true) {
 
-                delete this.items[key]
-            }
-           
-        } 
-    },
-
+                this.items = this.items.filter(task => task.name !== name ) 
+            }  
+        },
+        
     editTask: function (taskName, newText, confirm) {
 
-        for (const [key,value] of Object.entries(ToDo.items)) {
+        if (confirm === true) {
+            
+            this.items = this.items.map(function(task) {
 
-            if (value.name === taskName && confirm === true ) {
-                
-                this.items[key].text = newText
-               
-            }
+                if (task.name === taskName) {
+
+                    task.text = newText
+                }
+                return task
+            })
         }
+       
     },
 
     showInfoAboutTasks: function () {
@@ -102,7 +102,7 @@ let ToDo = {
         
         let completedTask = 0;
 
-        for (const [key,value] of Object.entries(ToDo.items)) {
+        for (const [key,value] of Object.entries(toDo.items)) {
 
              allTask++;
 
@@ -118,11 +118,14 @@ let ToDo = {
 
 }
 
-ToDo.createNewTask('task1', true, 'do bla bla bla');
-ToDo.createNewTask('task2', false, 'do bla bla bla');
-ToDo.editTask('task1', 'dfhdfh',true)
-ToDo.showInfoAboutTasks()
-console.log(ToDo.items);
+toDo.createNewTask('task1', true, 'do bla bla bla');
+toDo.createNewTask('task2', false, 'do bla bla bla');
+toDo.editTask('task1', 'dfhdfh',true)
+console.log(toDo.items);
+toDo.deleteTask('task2', true);
+toDo.editTask('task1','fghfghfghfghfghfghfghfghfgh', true)
+console.log(toDo.items);
+
 
 
 
