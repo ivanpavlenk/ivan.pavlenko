@@ -4,207 +4,67 @@ function TodoCreate () {
     this.tasks = []
 }
 
-TodoCreate.prototype.createTask = function(taskName,taskDate) {
-
-    taskDate = new Date().toLocaleString();
+TodoCreate.prototype.createTask = function(taskName) {
 
     const note = {
-
         name: taskName,
-
-        completed: false,
-
-        date: taskDate
+        active: false,
+        date: new Date().toLocaleString()
     }
-
     this.tasks.push(note)
-    
 }
 
 TodoCreate.prototype.deleteTask =  function (name, apply) {
 
-    if (apply === true) {
-
+    if (apply) {
         this.tasks = this.tasks.filter(note => note.name !== name) 
     }  
 }
 
 TodoCreate.prototype.editTask = function (taskName, newText, confirm) {
 
-    if (confirm === true) {
-        
-        this.tasks = this.tasks.map(function(task) {
+    if (confirm) {
+        this.tasks = this.tasks.map(function(note) {
 
-            if (task.name === taskName) {
-
-            task.text = newText
-        }
-            return task
+            if (note.name === taskName) {
+                note.text = newText
+            }
+            return note
         })
-    }
-    
+    }   
 }
 
 TodoCreate.prototype.showInfoAboutTasks = function () {
 
-    let allTask = 0;
+    return this.tasks.reduce((accum,note) => {
+        if (note.active) {
+            accum.activeTask++
+        }
+         return accum
 
-    let activeTask = 0;
-    
-    let completedTask = 0;
-
-    for (const [key,value] of Object.entries(this.tasks)) {
-
-         allTask++;
-
-         if (value.completed !== true) {
-
-             activeTask++;
-             
-         } else completedTask++;
-
-    }
-
-    console.log(`Всего задач - ${allTask}. Активных - ${activeTask}. Сделано - ${completedTask}`)
+    },{ totalTask: this.tasks.length, activeTask: 0})
 }
 
+TodoCreate.prototype.completedTask = function (name) {
 
+    this.tasks = this.tasks.map(function (note) {
+        if (note.name === name) {
+            note.active = true  
+        }
+        return note
+    })  
+}
 
 let todoList = new TodoCreate()
 
 todoList.createTask('task1')
 todoList.createTask('task2')
-todoList.showInfoAboutTasks()
+todoList.completedTask('task1')
+
 console.log(todoList)
-todoList.deleteTask('task2',true)
+
 todoList.editTask('task1','newtext,',true)
 
-
-
-console.log(todoList)
-
-
-
-let todoList2 = new TodoCreate()
-todoList2.createTask('task4')
-todoList2.createTask('task5')
-todoList2.showInfoAboutTasks()
-console.log(todoList2)
-todoList2.deleteTask('task5',true)
-todoList2.editTask('task4','newtext,',true)
-
-
-console.log(todoList2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(todoList.showInfoAboutTasks());
 
 
