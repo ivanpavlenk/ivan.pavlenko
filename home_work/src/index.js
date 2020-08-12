@@ -3,84 +3,31 @@ let toDo = {
    
     items: [],
 
-    createNewTask: function (taskName,taskStatus,taskText,taskDate){
+    createNewTask: function (taskName,taskText){
 
-        taskDate = new Date().toLocaleString();
-
-        if (toDo.items.length > 0) {
-
-            for (const [key,value] of Object.entries(toDo.items)) {
-
-                if (value.name !== taskName) {
-
-                   let task = Object.create(
-                    {},
-        
-                    {
-                        name:{
-                            value: taskName
-                        },
-        
-                        status: {
-                            value: taskStatus,
-                            writable: true,
-                        },
-        
-                        date: {
-                            value: taskDate
-                        },
-        
-                        text: {
-                            value: taskText,
-                            writable:  true
-                        }
-        
-                    });
-                this.items.push(task);
-                    
-                }
-            }
-            
+        const task = {
+            name: taskName,
+            status: true,
+            text: taskText
         }
-        else {
-            let task = Object.create(
-                {},
-    
-                {
-                    name:{
-                        value: taskName
-                    },
-    
-                    status: {
-                        value: taskStatus,
-                        writable: true,
-                    },
-    
-                    date: {
-                        value: taskDate
-                    },
-    
-                    text: {
-                        value: taskText,
-                        writable:  true
-                    }
-    
-                });
-            this.items.push(task);
-        }
+
+        this.items = this.items.filter(function (task) {
+             return task.name !== taskName   
+        })
+
+        this.items.push(task);
     },
 
     deleteTask: function (name, apply) {
 
-            if (apply === true) {
-
+            if (apply) {
                 this.items = this.items.filter(task => task.name !== name ) 
             }  
         },
         
     editTask: function (taskName, newText, confirm) {
 
-        if (confirm === true) {
+        if (confirm) {
             
             this.items = this.items.map(function(task) {
 
@@ -96,35 +43,39 @@ let toDo = {
 
     showInfoAboutTasks: function () {
 
-        let allTask = 0;
+       return this.items = this.items.reduce((accum,task) => {
 
-        let activeTask = 0;
-        
-        let completedTask = 0;
+            if (task.status) {
+                accum.activeTask++
+            }
+            else {
+                accum.completed++
+            }
+            return accum
 
-        for (const [key,value] of Object.entries(toDo.items)) {
-
-             allTask++;
-
-             if (value.status === true) {
-
-                 activeTask++;
-                 
-             } else completedTask++;
-
-        }
-        console.log(`Всего задач - ${allTask}. Активных - ${activeTask}. Сделано - ${completedTask}`)
+        },{allTask: this.items.length, activeTask: 0, completed: 0})
+       
     }
-
 }
 
-toDo.createNewTask('task1', true, 'do bla bla bla');
-toDo.createNewTask('task2', false, 'do bla bla bla');
-toDo.editTask('task1', 'dfhdfh',true)
+toDo.createNewTask('task1', 'do bla bla bla');
+toDo.createNewTask('task2', 'do bla bla bla');
+toDo.editTask('task1', 'dfhdfh',true);
+
 console.log(toDo.items);
-toDo.deleteTask('task2', true);
-toDo.editTask('task1','fghfghfghfghfghfghfghfghfgh', true)
-console.log(toDo.items);
+
+console.log(toDo.showInfoAboutTasks());
+
+
+
+
+
+
+
+
+
+
+
 
 
 
