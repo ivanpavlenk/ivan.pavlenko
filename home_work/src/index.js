@@ -47,7 +47,7 @@ class TodoList extends List {
 class ContactList extends List {
 
     search(val) {
-        this.tasks = this.tasks.filter(note => note.name === val)
+        this.tasks = this.tasks.filter(note => note.name === val || note.date === val)
     }
 }
 
@@ -75,8 +75,3 @@ listSearch.deleteTask('task1')
 listSearch.search('task3')
 
 console.log(listSearch)
-
-
-
-
-
