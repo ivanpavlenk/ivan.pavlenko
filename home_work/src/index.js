@@ -63,13 +63,6 @@ class ContactList extends List {
 }
 
 
-
-
-
-
-
-
-
 let todoList = new TodoList({
     tasks: []
 })
