@@ -1,86 +1,83 @@
+class List {
 
-let toDo = {
-   
-    items: [],
+    constructor (options) {
+        this.tasks = options.tasks
+    }
 
-    createNewTask: function (taskName,taskText){
-
-        const task = {
+    addTask(taskName) {
+        let note = {
             name: taskName,
-            status: true,
-            text: taskText
+            completed: false,
+            date: new Date().toLocaleString()
         }
+        this.tasks.push(note)
+    }
 
-        this.items = this.items.filter(function (task) {
-             return task.name !== taskName   
-        })
+    deleteTask(taskName) {
+        this.tasks = this.tasks.filter(note => note.name !== taskName)
+    }
+}
 
-        this.items.push(task);
-    },
 
-    deleteTask: function (name, apply) {
+class TodoList extends List {
 
-            if (apply) {
-                this.items = this.items.filter(task => task.name !== name ) 
-            }  
-        },
-        
-    editTask: function (taskName, newText, confirm) {
-
-        if (confirm) {
-            
-            this.items = this.items.map(function(task) {
-
-                if (task.name === taskName) {
-
-                    task.text = newText
-                }
-                return task
-            })
-        }
-       
-    },
-
-    showInfoAboutTasks: function () {
-
-       return this.items = this.items.reduce((accum,task) => {
-
-            if (task.status) {
-                accum.activeTask++
+    completed(taskName) {
+        this.tasks = this.tasks.map(function (note) {
+            if (taskName === note.name) {
+                note.completed = true
             }
-            else {
+            return note
+        })
+    }
+
+    statystic() {
+
+        return this.tasks.reduce((accum,note) => {
+
+            if (note.completed) {
                 accum.completed++
             }
             return accum
 
-        },{allTask: this.items.length, activeTask: 0, completed: 0})
-       
+        },{allTask: this.tasks.length, completed: 0 })
     }
 }
 
-toDo.createNewTask('task1', 'do bla bla bla');
-toDo.createNewTask('task2', 'do bla bla bla');
-toDo.editTask('task1', 'dfhdfh',true);
 
-console.log(toDo.items);
+class ContactList extends List {
 
-console.log(toDo.showInfoAboutTasks());
+    search(val) {
+        
+        let result = []
+        for (const key in this.tasks) {
+            for (const j in this.tasks[key]) {
 
+                if (this.tasks[key][j] === val)  {
+                    result.push(this.tasks[key])
+                }
+            }
+        }
+        return result
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
-    
-    
-    
+
+
+
+
+
+
+let todoList = new TodoList({
+    tasks: []
+})
+
+todoList.addTask('task');
+todoList.addTask('task2');
+todoList.completed('task');
+console.log(todoList.search(false));
+
+
+
