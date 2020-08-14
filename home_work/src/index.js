@@ -47,19 +47,8 @@ class TodoList extends List {
 class ContactList extends List {
 
     search(val) {
-        
-        let result = []
-        for (const key in this.tasks) {
-            for (const j in this.tasks[key]) {
-
-                if (this.tasks[key][j] === val)  {
-                    result.push(this.tasks[key])
-                }
-            }
-        }
-        return result
+        this.tasks = this.tasks.filter(note => note.name === val)
     }
-
 }
 
 
@@ -67,10 +56,27 @@ let todoList = new TodoList({
     tasks: []
 })
 
+let listSearch = new ContactList({
+    tasks: []
+})
+
 todoList.addTask('task');
 todoList.addTask('task2');
 todoList.completed('task');
-console.log(todoList.search(false));
+
+console.log(todoList)
+
+
+
+listSearch.addTask('task1')
+listSearch.addTask('task2')
+listSearch.addTask('task3')
+listSearch.deleteTask('task1')
+listSearch.search('task3')
+
+console.log(listSearch)
+
+
 
 
 
