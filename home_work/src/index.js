@@ -1,120 +1,83 @@
-// class List {
 
-//     constructor (options) {
-//         this.tasks = options.tasks
-//     }
-
-//     addTask(taskName) {
-//         let note = {
-//             name: taskName,
-//             completed: false,
-//             date: new Date().toLocaleString()
-//         }
-//         this.tasks.push(note)
-//     }
-
-//     deleteTask(taskName) {
-//         this.tasks = this.tasks.filter(note => note.name !== taskName)
-//     }
-// }
-
-
-// class TodoList extends List {
-
-//     completed(taskName) {
-//         this.tasks = this.tasks.map(function (note) {
-//             if (taskName === note.name) {
-//                 note.completed = true
-//             }
-//             return note
-//         })
-//     }
-
-//     statystic() {
-
-//         return this.tasks.reduce((accum,note) => {
-
-//             if (note.completed) {
-//                 accum.completed++
-//             }
-//             return accum
-
-//         },{allTask: this.tasks.length, completed: 0 })
-//     }
-// }
-
-
-// class ContactList extends List {
-
-//     search(val) {
-//         this.tasks = this.tasks.filter(note => note.name === val || note.date === val)
-//     }
-// }
-
-
-// let todoList = new TodoList({
-//     tasks: []
-// })
-
-// let listSearch = new ContactList({
-//     tasks: []
-// })
-
-// todoList.addTask('task');
-// todoList.addTask('task2');
-// todoList.completed('task');
-
-// console.log(todoList)
-
-
-
-// listSearch.addTask('task1')
-// listSearch.addTask('task2')
-// listSearch.addTask('task3')
-// listSearch.deleteTask('task1')
-// listSearch.search('task3')
-
-// console.log(listSearch)
-
-
-
-
-const todo = 'https://todo.hillel.it/todo'
-function sendRequest(method,url,body = null) {
-    return fetch(url,{
-        method: method,
-        body:  JSON.stringify(body)
-          
-    })
-}
-  
-
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({"value":"Test user"});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("https://todo.hillel.it/auth/login", requestOptions)
-  .then(response => response.json())
-  .then(result => {
-      return fetch ('https://todo.hillel.it/todo',{
-        method: 'GET',
-        headers: `Authorization, Bearer ${result.access_token}`,
-      })
-  })
+  let todo = {
    
-  .then(result => console.log(result)
-  )
+    items: [],
+
+    auth: function (){
+
+        let myHeaders = new Headers()
+        myHeaders.append("Content-Type", "application/json");
+        let raw = JSON.stringify({"value":"Test user"})
+
+        fetch("https://todo.hillel.it/auth/login",{
+            headers: myHeaders,
+            method: 'POST',
+            body: raw
+                 
+        })
+        .then(response => response.json())
+        .then(response => {
+            return localStorage.setItem('token',response.access_token)
+        })     
+    },
+
+    initUsers: function () {
+
+        let authHeader = new Headers();
+        authHeader.append("Authorization", `Bearer ${localStorage.getItem('token')}`);
+        let requestOptions = {
+            method: 'GET',
+            headers: authHeader,
+            redirect: 'follow'
+        }       
+
+         fetch("https://todo.hillel.it/todo", requestOptions)
+        .then(response => response.json())
+        .then(result => this.items.push(result))
+            
+    },
 
 
+    createTodo: function (newVal,prior) {
+        let newNote = {
+        
+            "value": newVal,
+            "priority": prior  
+       }
 
+       newNote = JSON.stringify(newNote)
+       let addHeaders = new Headers();
+       addHeaders.append("Authorization", `Bearer ${localStorage.getItem('token')}`);
+       addHeaders.append("Content-Type", "application/json");
+     
+       var requestOptions = {
+            method: 'POST',
+            headers: addHeaders,
+            body: newNote,
+            redirect: 'follow'
+       };
+       
+       fetch("https://todo.hillel.it/todo", requestOptions)
+       .then(this.initUsers())     
+    },
 
-  
-  
+    deleteTodo: function (id) {
+
+        let deleteHeaders = new Headers();
+        deleteHeaders.append("Authorization", `Bearer ${localStorage.getItem('token')}`);
+
+        let requestOptions = {
+            method: 'DELETE',
+            headers: deleteHeaders,
+            redirect: 'follow'
+        }       
+
+         fetch(`https://todo.hillel.it/todo/${id}`, requestOptions)
+         .then(this.initUsers())
+            
+    }
+}
+
+todo.deleteTodo(2499)
+console.log(todo)
+
