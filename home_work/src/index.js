@@ -64,6 +64,8 @@ toDo.editTask('task1', 'dfhdfh',true);
 
 console.log(toDo.items);
 
+
+
 console.log(toDo.showInfoAboutTasks());
 
 
