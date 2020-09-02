@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+
+.wrapper {
+    display: block;
+    width: 500px;
+    background-color: rgb(122, 119, 119);
+    margin: 0 auto;
+    padding: 30px;
+}
+h1 {
+    text-align: center;
+    color: white;
+}
+
+
+ul {
+    display: block;
+    list-style: none;
+    width: 100%;
+    background-color: snow;
+    padding: 0;
+    border: solid 1px white;
+    margin-bottom: 50px;
+}
+ul:last-child {
+    border-bottom: none;
+}
+ul > li {
+    padding: 15px;
+    background-color: rgb(53, 200, 65);
+    border-bottom: 1px solid white
+}
+
+
+
+
+table {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: white; 
+}
+
+td {
+    border: 1px solid black;
+     padding: 10px;
+}
