@@ -1,90 +1,84 @@
-class TodoList {
+$(document).ready(function () {
 
-    constructor() {
+    // init element of slider 
 
-      this.list = document.querySelector('.todo-list')
-      this.todoInput = document.querySelector('.todo-text')
-      this.btnAddNote = document.querySelector('.add')
-      this.toggleShowBtn = document.querySelector('.show-hide-complete')
-    }
+    let items = $('.item');
+    $.each(items, function () {
+        $('.bullet-inner').append('<a href="" class="bullet"></a>');
+    });
 
-    todoInit() {
+    $('.bullet').eq(0).addClass('active-bullet');
 
-        this.btnAddNote.addEventListener('click', () => {
-            let listItem = document.createElement('li')
-            listItem.classList.add('list-item')
-            listItem.setAttribute('data-complete','false')
+    $('.bullet-inner').after('<a href="" class="next-btn">&#8594;</a>');
+    $('.bullet-inner').after('<a href="" class="prev-btn">&#8592;</a>');
 
-            let listText = document.createElement('p')
-            listText.innerText = this.todoInput.value
-    
-            let btnDone = document.createElement('button')
-            btnDone.classList.add('complete-btn')
-            btnDone.innerText = 'done'
-            this.completeNote(btnDone)
-           
-            let btnDelete = document.createElement('button')
-            btnDelete.classList.add('delete-btn')
-            btnDelete.innerText = 'delete'
-            this.deleteNote(btnDelete)
-            
-            let btnInner = document.createElement('div')
-            btnInner.append(btnDone)
-            btnInner.append(btnDelete)
-            listItem.append(listText)
-            listItem.append(btnInner)
-            this.list.append(listItem)
-            this.todoInput.value = ""
-        })
-    }
+    // ============================================
 
-    deleteNote(elem) {
+    // function for next - btn ===== 
 
-        elem.addEventListener('click',(event)=>{
-            let target = event.target
-            target.parentNode.parentNode.remove()
-        })
-    }
+    $('.next-btn').click(function (e) {
+        e.preventDefault();
+        let currentImg = $('.item.item-active')
+        let currentImgIndex = currentImg.index()
+        let nextImgIndex = currentImgIndex + 1
+        let nextImg = $('.item').eq(nextImgIndex)
+        let bullet = $('.bullet')
+        activeBullet = $('.bullet').eq(nextImgIndex)
 
-    completeNote(elem) {
+        currentImg.hide(500)
+        currentImg.removeClass('item-active')
+        bullet.removeClass('active-bullet')
+        activeBullet.addClass('active-bullet')
 
-        elem.addEventListener('click',function (event) {
-            let target = event.target
-            target.parentNode.parentNode.firstChild.classList.add('list-text')
-            this.disabled = true
-            target.parentNode.parentNode.setAttribute('data-complete','true')
-        })
-    }
+        if (nextImgIndex == ($('.item:last').index() + 1)) {
+            $('.item').eq(0).show(500);
+            $('.item').eq(0).addClass('item-active')
+            $('.bullet').eq(0).addClass('active-bullet')
+        }
+        else {
+            nextImg.show(500)
+            nextImg.addClass('item-active');
+        }
+    });
 
-    toggleShowNote() {
-        this.toggleShowBtn.addEventListener('click',() => {
-            let listItems = document.querySelectorAll('.list-item')
-            listItems.forEach(elem => {
-                if (elem.getAttribute('data-complete') === "true") {
-                    elem.classList.toggle('list-item-hide')
-                }
-                
-            })
-            listItems.forEach(elem => {
+    // ==========================================
 
-                if (elem.classList.contains('list-item-hide')) {
-                    this.toggleShowBtn.innerHTML = 'show complete'
-                }
-                else {
-                    this.toggleShowBtn.innerHTML = 'hide complete'
-                }
-            })
-        }) 
+    // function for prev - btn ===== start 
 
-    }
-  }
-    
-todo = new TodoList()
-todo.todoInit()
-todo.toggleShowNote()
+    $('.prev-btn').click(function (e) {
+
+        e.preventDefault();
+        let currentImg = $('.item.item-active')
+        let currentImgIndex = currentImg.index()
+        let prevImgIndex = currentImgIndex - 1
+        let prevImg = $('.item').eq(prevImgIndex)
+        let bullet = $('.bullet')
+        activeBullet = $('.bullet').eq(prevImgIndex)
+
+        currentImg.hide(500)
+        currentImg.removeClass('item-active')
+        bullet.removeClass('active-bullet')
+        activeBullet.addClass('active-bullet')
+        prevImg.show(500)
+        prevImg.addClass('item-active');
+    });
 
 
+    // ==========================================
 
+    // function for bullets
 
+    let bullets = $('.bullet')
+    bullets.click(function (e) {
+        e.preventDefault();
+        bullets.removeClass('active-bullet')
+        $(this).addClass('active-bullet')
+        let images = $('.item')
+        let activeImage = images.eq($(this).index())
 
-
+        images.removeClass('item-active')
+        images.hide(500);
+        activeImage.show(500)
+        activeImage.addClass('item-active')
+    });
+});
