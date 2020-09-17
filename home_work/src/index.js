@@ -1,84 +1,121 @@
-$(document).ready(function () {
+window.onload = function () {
 
-    // init element of slider 
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
 
-    let items = $('.item');
-    $.each(items, function () {
-        $('.bullet-inner').append('<a href="" class="bullet"></a>');
-    });
+const snowLegs = {
+    x: 200,
+    y: 300,
+    radius: 100,
+    degrees: 2 * Math.PI
+}
 
-    $('.bullet').eq(0).addClass('active-bullet');
+const snowBody = {
+    x: 200,
+    y: 150,
+    radius: 70,
+    degrees: 2 * Math.PI
+}
 
-    $('.bullet-inner').after('<a href="" class="next-btn">&#8594;</a>');
-    $('.bullet-inner').after('<a href="" class="prev-btn">&#8592;</a>');
+const snowHead = {
+    x: 200,
+    y: 50,
+    radius: 40,
+    degrees: 2 * Math.PI,
+}
 
-    // ============================================
+const snowFace = {
+    rightEye: {
+        x: 180,
+        y: 40,
+        radius: 5,
+        degrees: 2 * Math.PI,
+    },
 
-    // function for next - btn ===== 
+    leftEye: {
+        x: 220,
+        y: 40,
+        radius: 5,
+        degrees: 2 * Math.PI,
+    },
 
-    $('.next-btn').click(function (e) {
-        e.preventDefault();
-        let currentImg = $('.item.item-active')
-        let currentImgIndex = currentImg.index()
-        let nextImgIndex = currentImgIndex + 1
-        let nextImg = $('.item').eq(nextImgIndex)
-        let bullet = $('.bullet')
-        activeBullet = $('.bullet').eq(nextImgIndex)
+    smile: {
+        x: 200,
+        y: 60,
+        radius: 12,
+        startAngle: 0,
+        endAngle: 180
+    }
+}
 
-        currentImg.hide(500)
-        currentImg.removeClass('item-active')
-        bullet.removeClass('active-bullet')
-        activeBullet.addClass('active-bullet')
+function drawBody({x,y,radius,degrees}) {
+    context.beginPath()
+    context.arc(x, y, radius,degrees,false)
+    context.fillStyle ='white'
+    context.fill()
+    context.stroke()   
+}
 
-        if (nextImgIndex == ($('.item:last').index() + 1)) {
-            $('.item').eq(0).show(500);
-            $('.item').eq(0).addClass('item-active')
-            $('.bullet').eq(0).addClass('active-bullet')
-        }
-        else {
-            nextImg.show(500)
-            nextImg.addClass('item-active');
-        }
-    });
+function drawFace (face) {
 
-    // ==========================================
+    context.beginPath()
+    context.arc(face.rightEye.x,face.rightEye.y,face.rightEye.radius,face.rightEye.degrees,false)
+    context.fillStyle ='black'
+    context.strokeStyle='silver';
+    context.fill()
+    context.stroke() 
+    
+    context.beginPath()
+    context.arc(face.leftEye.x,face.leftEye.y,face.leftEye.radius,face.leftEye.degrees,false)
+    context.fillStyle ='black'
+    context.strokeStyle='silver';
+    context.fill()
+    context.stroke()
+    
+    context.beginPath()
+    context.arc(face.smile.x, face.smile.y, face.smile.radius, getRadians(face.smile.startAngle), getRadians(face.smile.endAngle), false);
+    context.strokeStyle='silver';
+    context.stroke()  
+}
 
-    // function for prev - btn ===== start 
+function drawSnowMan() {
 
-    $('.prev-btn').click(function (e) {
+    drawBody(snowHead)
+    drawBody(snowBody)
+    drawBody(snowLegs)
+    drawFace(snowFace)
+}
 
-        e.preventDefault();
-        let currentImg = $('.item.item-active')
-        let currentImgIndex = currentImg.index()
-        let prevImgIndex = currentImgIndex - 1
-        let prevImg = $('.item').eq(prevImgIndex)
-        let bullet = $('.bullet')
-        activeBullet = $('.bullet').eq(prevImgIndex)
+drawSnowMan()
 
-        currentImg.hide(500)
-        currentImg.removeClass('item-active')
-        bullet.removeClass('active-bullet')
-        activeBullet.addClass('active-bullet')
-        prevImg.show(500)
-        prevImg.addClass('item-active');
-    });
+function getRadians(degrees) {
+    return (Math.PI/180)*degrees;
+}
+
+// Three js ================================================================
 
 
-    // ==========================================
+var scene = new THREE.Scene();
 
-    // function for bullets
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.position.z = 5;
 
-    let bullets = $('.bullet')
-    bullets.click(function (e) {
-        e.preventDefault();
-        bullets.removeClass('active-bullet')
-        $(this).addClass('active-bullet')
-        let images = $('.item')
-        let activeImage = images.eq($(this).index())
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
 
-        images.removeClass('item-active')
-        images.hide(500);
-        activeImage.show(500)
-        activeImage.addClass('item-active')
-    });
-});
+var geometry = new THREE.BoxGeometry();
+var material = new THREE.MeshBasicMaterial( {color: 0x776767} );
+
+var cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+var animate = function () {
+    requestAnimationFrame( animate );
+
+    cube.rotation.x += 0.01;
+    renderer.render( scene, camera );
+};
+animate();
+
+}   
