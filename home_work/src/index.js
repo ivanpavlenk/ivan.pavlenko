@@ -32,7 +32,7 @@ class TodoList  {
             headers:{ Authorization: `Bearer ${this.token}`}
         })
         .then(data => data.json())
-        .then(data => this.notes = data)
+        .then(data => this.notes.push(data))  
     }
 
     addNote(value,priority) {
@@ -48,7 +48,6 @@ class TodoList  {
                     priority
                 })
             })
-            .then(this.initTodo())
         } 
     }
 
@@ -57,7 +56,6 @@ class TodoList  {
             method: 'DELETE',
             headers:{ Authorization: `Bearer ${this.token}`}
         })
-        .then(this.initTodo())
     }
 
     update(id,value,priority) {
@@ -73,26 +71,24 @@ class TodoList  {
                     priority
                 })
             })
-            .then(this.initTodo())
         } 
     }
 }
 
 todo = new TodoList('https://todo.hillel.it')
-todo.auth('iserli35')
+todo.auth('iserli45')
 todo.addNote('first2',1)
 todo.addNote('two3',2)
-setTimeout(() =>{
-    todo.update(2658,'test,', 1)
-},2000)
+
 
 
 
 
 setTimeout(() => {
-    console.log(todo);
+    todo.initTodo()
+    console.log(todo.notes);
     
-},7000)
+},5000)
 
 
 
