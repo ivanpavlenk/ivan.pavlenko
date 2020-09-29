@@ -11,9 +11,7 @@ class List {
             date: new Date().toLocaleString()
         }
         this.tasks.push(note)
-        this.addStorage()
-
-        
+        this.addStorage()  
     }
 
     deleteTask(taskName) {
@@ -29,7 +27,6 @@ class List {
 
 }
 
-
 class TodoList extends List {
 
     completed(taskName) {
@@ -44,7 +41,6 @@ class TodoList extends List {
     }
 
     statystic() {
-
         return this.tasks.reduce((accum,note) => {
 
             if (note.completed) {
@@ -55,7 +51,6 @@ class TodoList extends List {
         },{allTask: this.tasks.length, completed: 0 })
     }
 }
-
 
 class ContactList extends List {
 
@@ -78,23 +73,3 @@ todoList.addTask('task2');
 todoList.completed('task2')
 
 console.log(todoList)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
