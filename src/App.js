@@ -29,9 +29,9 @@ export default class App extends Component {
     };
   }
 
-  setNameProduct = (value) => {
-    this.setState({...this.state, nameProduct: value});
-  };
+
+// =================== Function for Validation start=========================
+
 
   onBlurName = () => {
     if (this.state.nameProduct.length.toString() < 3) {
@@ -124,6 +124,13 @@ export default class App extends Component {
     }
   };
 
+
+// =================== Function for Validation end========================
+
+
+  setNameProduct = (value) => {
+    this.setState({...this.state, nameProduct: value});
+  };
   setCategoryProduct = (value) => {
     this.setState({...this.state, categoryProduct: value});
   };

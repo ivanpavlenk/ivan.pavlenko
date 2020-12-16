@@ -48,7 +48,7 @@ export default function Form({
     categoryProduct,
     priceProduct,
     stockBalanceProduct,
-    disabledSubmitBtn
+    disabledSubmitBtn,
   } = formState;
   const {
     errorNameLengthFlag,
@@ -122,7 +122,7 @@ export default function Form({
           variant="contained"
           color="primary"
           onClick={editOnProductFlag ? confirmEditOnProduct : addProduct}
-          disabled = {disabledSubmitBtn}
+          disabled={disabledSubmitBtn}
         >
           {editOnProductFlag ? textButton.change : textButton.add}
         </ColorButton>
