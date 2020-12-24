@@ -1,44 +1,23 @@
 import React, {Component} from 'react';
 import {Feed} from 'semantic-ui-react';
-import {Button, Message} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
+import Comments from './Comments'
 
 class PostItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      commentOpen: false,
-      comments: [],
-      buttonLoader: false,
+      isCommentOpen: false,
     };
   }
 
-  hideComment = () => {
-    this.setState({comments: [], commentOpen: false});
+  toggleShowComment = () => {
+    this.setState({isCommentOpen: !this.state.isCommentOpen});
   };
-
-  componentDidMount() {
-    const {buttonLoader} = this.state;
-    if (buttonLoader) {
-      this.fetchComments();
-    }
-  }
-
-  fetchComments(postId) {
-    this.setState({buttonLoader: true});
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-      .then((response) => response.json())
-      .then((comments) => {
-        this.setState({
-          buttonLoader: false,
-          comments,
-          commentOpen: true,
-        });
-      });
-  }
 
   render() {
     const {post, onClick} = this.props;
-    const {commentOpen, buttonLoader, comments} = this.state;
+    const {isCommentOpen} = this.state;
     return (
       <Feed>
         <Feed.Event>
@@ -56,19 +35,12 @@ class PostItem extends Component {
             <Button
               className="comments-btn"
               size="small"
-              onClick={
-                commentOpen
-                  ? this.hideComment
-                  : () => this.fetchComments(post.id)
-              }
-              loading={buttonLoader}
+              onClick={this.toggleShowComment}
               primary
             >
-              {commentOpen ? 'Hide comment' : 'Show comment'}
+              {isCommentOpen ? 'Hide comment' : 'Show comment'}
             </Button>
-            {comments.map((comment) => {
-              return <Message key={comment.id}>{comment.body}</Message>;
-            })}
+            {isCommentOpen && <Comments postId={post.id}/> }
           </Feed.Content>
         </Feed.Event>
       </Feed>

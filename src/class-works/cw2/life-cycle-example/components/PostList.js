@@ -8,13 +8,11 @@ class PostList extends Component {
     this.state = {
       loading: false,
       posts: [],
-      comments: [],
     };
   }
 
   componentDidMount() {
     this.fetchUsers();
-    this.fetchComments();
   }
 
   fetchUsers() {
@@ -35,21 +33,8 @@ class PostList extends Component {
       });
   }
 
-  fetchComments() {
-    fetch('https://jsonplaceholder.typicode.com/comments')
-      .then((response) => response.json())
-      .then((comments) => {
-        this.setState({
-          comments,
-        });
-      })
-      .catch((e) => {
-        alert(e.message);
-      });
-  }
-
   render() {
-    const {loading, posts, comments} = this.state;
+    const {loading, posts} = this.state;
     const {onPostClick} = this.props;
     return (
       <div className="post-list-wrapper">
@@ -59,7 +44,6 @@ class PostList extends Component {
             onClick={() => onPostClick(post)}
             post={post}
             key={post.id}
-            comments={comments}
           />
         ))}
       </div>
