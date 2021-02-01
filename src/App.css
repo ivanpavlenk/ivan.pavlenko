@@ -1,50 +1,36 @@
-.App {
-  max-width: 800px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0 auto;
-
-}
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  background-color: rgba(0, 0, 0, 0.815);
-  font-size: 50px;
-  color: white;
-  margin-bottom: 20px;
-  
-}
-form {
-  position: absolute;
-  right: 0;
-  top: 16%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 100;
-}
-
-.overlay-form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.219);
-  z-index: 1;
-  
-}
-
-.off-product {
+.full-with-img {
   width: 100%;
-  height: 50px;
-  margin: 0 auto;
-  color: white;
-  font-size: 18px;
-  line-height: 50px;
+}
+body {
+  background-color: silver;
+}
+.setting-form {
+  width: 400px;
+  min-height: 200px;
+  padding-left: 30px;
+  padding-top: 10px;
+  background-color: rgba(43, 41, 41, 0.76);
+  margin: 30px auto;
+}
+
+.form-title {
   text-align: center;
-  background-color: #f44336;
+  color: aliceblue;
+  margin-left: -30px;
+}
+
+.radio-type-glide:not(:first-child) {
+  margin-left: 40px;
+}
+.autoplay-input {
+  margin-left: 30px;
+  height: 30px;
+}
+
+.autoplay-setting {
+  margin-bottom: 15px;
+}
+label {
+  color: aliceblue !important;
+  font-size: 17px !important;
 }
