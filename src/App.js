@@ -1,101 +1,45 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import Slider from './components/slider';
 import 'semantic-ui-css/semantic.min.css';
-import {Container, Checkbox, Form, Radio, Input} from 'semantic-ui-react';
+import {Container, Menu, MenuItem} from 'semantic-ui-react';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch,
+} from 'react-router-dom';
+import Main from './components/main';
+import Planets from './components/planets';
+import Heroes from './components/heroes';
+import HeroPage from './components/heroPage';
 
 function App () {
-  const [options, setOptions] = useState ({
-    autoplay: 2000,
-    type: 'carousel',
-    autoplaySetting: true,
-    perView: 3,
-  });
-  const {autoplay, type, autoplaySetting, perView} = options;
-
-  const handleChange = (e, {value}) =>
-    setOptions ({...options, perView: value});
-
   return (
     <Container>
-      <Form className="setting-form">
-        <h1 className="form-title">Carousel-setting</h1>
-        <div className="autoplay-setting">
-          <Checkbox
-            label="Autoplay"
-            checked={autoplaySetting}
-            onChange={() =>
-              setOptions ({
-                ...options,
-                autoplaySetting: !autoplaySetting,
-                autoplay: autoplaySetting ? false : 2000,
-              })}
-          />
-          <Input
-            placeholder="Search..."
-            value={autoplay}
-            onChange={e => setOptions ({...options, autoplay: e.target.value})}
-            type="number"
-            disabled={autoplaySetting ? false : true}
-            className="autoplay-input"
-          />
-        </div>
-        <div className="type-radio-inner">
-          <Radio
-            className="radio-type-glide"
-            label="Carousel"
-            name="type"
-            value="carousel"
-            checked={type === 'carousel'}
-            onChange={() => setOptions ({...options, type: 'carousel'})}
-          />
-          <Radio
-            className="radio-type-glide"
-            label="Slider"
-            name="type"
-            value="carousel"
-            checked={type === 'slider'}
-            onChange={() => setOptions ({...options, type: 'slider'})}
-          />
-        </div>
-        <Form.Field>
-          <Radio
-            className="radio-type-glide"
-            label="View-1"
-            name="radioGroup"
-            value={1}
-            checked={perView === 1}
-            onChange={handleChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Radio
-            className="radio-type-glide"
-            label="View-2"
-            name="radioGroup"
-            value={2}
-            checked={perView === 2}
-            onChange={handleChange}
-          />
-        </Form.Field>
-      </Form>
-      <Slider options={{autoplay, type, perView}}>
-        <img
-          className="full-with-img"
-          src="https://www.valuecoders.com/blog/wp-content/uploads/2016/08/top-20-angularjs-developer-tools.jpg"
-          alt=""
-        />
-        <img
-          className="full-with-img"
-          src="https://i.morioh.com/200613/cbd162d1.jpg"
-          alt=""
-        />
-        <img
-          className="full-with-img"
-          src="https://i1.wp.com/storage.googleapis.com/blog-images-backup/1*wFL3csJ96lQpY0IVT9SE3w.jpeg?ssl=1"
-          alt=""
-        />
-      </Slider>
+      <Router>
+        <h1 className = 'main-title'>Star Wars DB</h1>
+        <Menu>
+          <NavLink to="/">
+            <MenuItem className="menu-item">Main</MenuItem>
+          </NavLink>
+          <NavLink to="/planets"><MenuItem>Planets</MenuItem></NavLink>
+          <NavLink to="/heroes"><MenuItem>Heroes</MenuItem></NavLink>
+        </Menu>
+        <Switch>
+          <Route path="/" exact>
+            <Main />
+          </Route>
+          <Route path="/planets" exact>
+            <Planets />
+          </Route>
+          <Route  path="/heroes" exact>
+            <Heroes />
+          </Route>
+          <Route path="/heroes:heroId">
+            <HeroPage />
+          </Route>
+        </Switch>
+      </Router>
     </Container>
   );
 }
