@@ -8,39 +8,39 @@ import {
   NavLink,
   Switch,
 } from 'react-router-dom';
-import Main from './components/main';
-import Planets from './components/planets';
-import Heroes from './components/heroes';
-import HeroPage from './components/heroPage';
+import Products from './containers/products';
+import Cart from './containers/cart';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import rootReducer from './Redux/reducers';
+import MenuCart from './components/menuCart'
+
+const store = createStore (rootReducer);
 
 function App () {
   return (
-    <Container>
-      <Router>
-        <h1 className = 'main-title'>Star Wars DB</h1>
-        <Menu>
-          <NavLink to="/">
-            <MenuItem className="menu-item">Main</MenuItem>
-          </NavLink>
-          <NavLink to="/planets"><MenuItem>Planets</MenuItem></NavLink>
-          <NavLink to="/heroes"><MenuItem>Heroes</MenuItem></NavLink>
-        </Menu>
-        <Switch>
-          <Route path="/" exact>
-            <Main />
-          </Route>
-          <Route path="/planets" exact>
-            <Planets />
-          </Route>
-          <Route  path="/heroes" exact>
-            <Heroes />
-          </Route>
-          <Route path="/heroes:heroId">
-            <HeroPage />
-          </Route>
-        </Switch>
-      </Router>
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <Router>
+          <h1 className="main-title">Product Cart</h1>
+          <div className="menu-inner">
+            <Menu>
+              <NavLink to="/products"><MenuItem>Products</MenuItem></NavLink>
+              <NavLink to="/cart"><MenuItem>Cart</MenuItem></NavLink>
+              <MenuCart/>
+            </Menu>
+          </div>
+          <Switch>
+            <Route path="/products" exact>
+              <Products />
+            </Route>
+            <Route path="/cart" exact>
+              <Cart />
+            </Route>
+          </Switch>
+        </Router>
+      </Container>
+    </Provider>
   );
 }
 
