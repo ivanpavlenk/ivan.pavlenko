@@ -1,28 +1,19 @@
 body {
-  background-color: rgb(47, 44, 44) !important;
+  background-color: rgb(29, 27, 27) !important;
 }
 
-.parag {
-  color: aliceblue;
-  font-size: 30px;
+.list-header {
+  color: white !important;
 }
 
-.description {
-  color: black;
-  font-size: 16px;
-}
-.poster {
+.code-views {
   width: 100%;
-  height: 600px;
-  background-image: url(./img/poster.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  min-height: 700px;
+}
+.syntax {
+  min-height: 700px !important;
 }
 
-.main-title {
-  text-align: center;
-  font-size: 50px;
-  font-weight: bold;
-  color: aliceblue;
+ .syntaxhighlighter {
+  white-space: pre-wrap !important; 
 }
