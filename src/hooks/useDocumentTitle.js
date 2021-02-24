@@ -1,18 +1,13 @@
-import {useEffect,useState} from 'react';
+import {useEffect} from 'react';
 
-export default function useDocumentTitle (defaultTitle){
+export default function useDocumentTitle (title){
 
-  const [title, setTitle] = useState (defaultTitle)
 
-  const handleChangeTitle = (e)=> {
-    setTitle(e.target.value)
-  }
-
-  useEffect (
+  return useEffect (
     () => {
       document.title = title;
     },
     [title]
   );
-  return {title,handleChangeTitle}
+
 };

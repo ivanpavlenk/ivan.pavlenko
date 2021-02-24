@@ -4,7 +4,7 @@ export default function useLocalStorage (key, defaultValue) {
   const [state, setState] = useState (() => {
     let value;
     try {
-      value = window.localStorage.getItem (key) || String (defaultValue);
+      value = JSON.parse(window.localStorage.getItem(key)) || String (defaultValue)
     } catch (e) {
       value = defaultValue;
     }
@@ -17,7 +17,7 @@ export default function useLocalStorage (key, defaultValue) {
 
   useEffect (
     () => {
-      window.localStorage.setItem (key, state);
+      window.localStorage.setItem(key, JSON.stringify(state));
     },
     [key, state]
   );

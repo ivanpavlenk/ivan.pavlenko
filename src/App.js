@@ -6,15 +6,14 @@ import useOnlineStatus from './hooks/useOnlineStatus';
 
 export default function App () {
 
-  const {title, handleChangeTitle} = useDocumentTitle ('Home work 4');
-  const {name, handleSetState} = useLocalStorage ('name', 'ivan');
+  const documentTitle = useDocumentTitle ('React Home Work 4');
+  const {optinsState,handleSetState} = useLocalStorage ('user',{name: 'Ivan',surname:'Pavlenko'});
   const {checkOnlineState} = useOnlineStatus ();
 
   return (
     <div className="App">
-      <input value={title} onChange={handleChangeTitle} />
       <input
-        value={name}
+        value={optinsState}
         placeholder="enter your value for local storage"
         onChange={handleSetState}
       />
