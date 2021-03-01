@@ -10,6 +10,8 @@ export default class App extends Component {
     super (props);
     this.state = {
       products: [],
+      isEditMode: false,
+      updatedProduct: null,
     };
   }
 
@@ -40,12 +42,21 @@ export default class App extends Component {
     this.setState ({products: products.filter (product => product.id !== id)});
   };
 
-  editProduct = editedProduct => {
+  getUpdatedProduct = product => {
+    this.setState ({
+      ...this.state,
+      updatedProduct: product,
+      isEditMode: true,
+    });
+  };
+
+  editProduct = updatedProduct => {
     const {products} = this.state;
     this.setState ({
       products: products.map (
-        product => (product.id === editedProduct.id ? editedProduct : product)
+        product => (product.id === updatedProduct.id ? updatedProduct : product)
       ),
+      isEditMode: false,
     });
   };
   render () {
@@ -54,9 +65,14 @@ export default class App extends Component {
         <ProductsTable
           products={this.state.products}
           deleteProduct={this.deleteProduct}
-          editProduct = {this.editProduct} 
+          getUpdatedProduct={this.getUpdatedProduct}
         />
-        <ProductsForm addProduct={this.addProduct} editMode = {this.isEditMode}/>
+        <ProductsForm
+          addProduct={this.addProduct}
+          editProduct={this.editProduct}
+          editMode={this.state.isEditMode}
+          updatedProduct={this.state.updatedProduct}
+        />
       </Container>
     );
   }

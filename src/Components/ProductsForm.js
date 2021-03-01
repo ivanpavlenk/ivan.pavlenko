@@ -12,6 +12,18 @@ export class ProductsForm extends Component {
     };
   }
 
+  componentDidUpdate (prevProps) {
+    const {updatedProduct} = this.props;
+    if (this.props.editMode !== prevProps.editMode && this.props.editMode === true) {
+      this.setState ({
+        ...this.state,
+        productName: updatedProduct.productName,
+        productCategory: updatedProduct.productCategory,
+        productPrice: updatedProduct.productPrice,
+        productQuantity: updatedProduct.productQuantity,
+      });
+    }
+  }
   setNameProduct = event => {
     this.setState ({...this.state, productName: event.target.value});
   };
@@ -33,7 +45,7 @@ export class ProductsForm extends Component {
       productQuantity: '',
     });
   };
-  handlerAddProduct = (e) => {
+  handlerAddProduct = e => {
     const {addProduct} = this.props;
     const {
       productName,
@@ -45,14 +57,34 @@ export class ProductsForm extends Component {
     this.clearForm ();
   };
 
+  handlerEditProduct = () => {
+    const {editProduct, updatedProduct} = this.props;
+    const {
+      productName,
+      productCategory,
+      productPrice,
+      productQuantity,
+    } = this.state;
+    const newProduct = {
+      id: updatedProduct.id,
+      productName,
+      productCategory,
+      productPrice,
+      productQuantity,
+    };
+    editProduct (newProduct);
+    this.clearForm ();
+  };
+
   render () {
     const {
       productName,
       productCategory,
       productPrice,
       productQuantity,
-      isEditMode,
     } = this.state;
+    const {editMode} = this.props;
+
     return (
       <div>
         <Form>
@@ -88,8 +120,16 @@ export class ProductsForm extends Component {
               onChange={event => this.setQuantityProduct (event)}
             />
           </Form.Field>
-          <Button type="submit" onClick={(e) => this.handlerAddProduct (e)}>
-            {isEditMode ? 'edit product' : 'add product'}
+          <Button
+            type="submit"
+            onClick={
+              editMode
+                ? () =>
+                    this.handlerEditProduct ()
+                : e => this.handlerAddProduct (e)
+            }
+          >
+            {editMode ? 'update product' : 'add product'}
           </Button>
         </Form>
       </div>
