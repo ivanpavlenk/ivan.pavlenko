@@ -5,21 +5,31 @@ import useLocalStorage from './hooks/useLocalStorage';
 import useOnlineStatus from './hooks/useOnlineStatus';
 
 export default function App () {
-
   const documentTitle = useDocumentTitle ('React Home Work 4');
-  const {optinsState,handleSetState} = useLocalStorage ('user',{name: 'Ivan',surname:'Pavlenko'});
+  const [options, setOptions] = useLocalStorage ('opts', {
+    autoplay: true,
+    value: 10,
+  });
+  const [name, setName] = useLocalStorage ('name', '');
   const {checkOnlineState} = useOnlineStatus ();
 
   return (
     <div className="App">
       <input
-        value={optinsState}
-        placeholder="enter your value for local storage"
-        onChange={handleSetState}
+        type="text"
+        value={name}
+        onChange={e => setName (e.target.value)}
       />
-      <button 
-        className = 'check-online-btn' 
-        onClick={checkOnlineState}>
+      <label>
+        <input
+          type="checkbox"
+          checked={options.autoplay}
+          onChange={() =>
+            setOptions ({...options, autoplay: !options.autoplay})}
+        />
+        Autoplay
+      </label>
+      <button className="check-online-btn" onClick={checkOnlineState}>
         Check Online State
       </button>
     </div>

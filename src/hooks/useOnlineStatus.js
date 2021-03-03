@@ -8,7 +8,7 @@ export default function useOnlineStatus() {
       setIsOnline(true);
       alert('Доступ к сети есть');
     } else {
-      alert('нет доступа к сети');
+      alert('Нет доступа к сети');
       setIsOnline(false);
     }
   };
